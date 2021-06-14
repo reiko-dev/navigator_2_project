@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:navigator_2_project/route/book_route_information_parser.dart';
+import 'package:navigator_2_project/route/book_router_delegate.dart';
 
 void main() {
   runApp(BooksApp());
-}
-
-class Book {
-  final String title;
-  final String author;
-
-  Book(this.title, this.author);
 }
 
 class BooksApp extends StatefulWidget {
@@ -17,23 +12,15 @@ class BooksApp extends StatefulWidget {
 }
 
 class _BooksAppState extends State<BooksApp> {
-  void initState() {
-    super.initState();
-  }
-
+  final _routerDelegate = BookRouterDelegate();
+  final _routeInformationParser = BookRouteInformationParser();
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Books App',
-      home: Navigator(
-        pages: [
-          MaterialPage(
-            key: ValueKey('BooksListPage'),
-            child: Scaffold(),
-          )
-        ],
-        onPopPage: (route, result) => route.didPop(result),
-      ),
+      debugShowCheckedModeBanner: false,
+      routerDelegate: _routerDelegate,
+      routeInformationParser: _routeInformationParser,
     );
   }
 }
